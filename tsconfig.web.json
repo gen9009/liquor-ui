@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve", // TS编译器指定JSX代码不进行转换
+    "lib": ["ESNext", "DOM"],
+    "declaration": true
+  },
+  "vueCompilerOptions": {
+    "target": 3
+  },
+  "exclude": ["node_modules", "**/dist"],
+  "include": ["packages"],
+  "composite": true
+}

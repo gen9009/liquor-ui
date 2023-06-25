@@ -10,7 +10,7 @@
   "trailingComma": "none",
   "overrides": [
     {
-      "files": [".prettierrc",".lintstagedrc.yaml"],
+      "files": [".prettierrc", ".lintstagedrc.yaml"],
       "options": {
         "parser": "json"
       }
