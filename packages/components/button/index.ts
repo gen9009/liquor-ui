@@ -1,4 +1,3 @@
-import LiButton from './src/button.vue'
-export { LiButton }
-export default LiButton
-export * from './src/button.vue'
+import { CompInstall } from '@liquor-ui/utils'
+import Button from './src/button.vue'
+export const LiButton = CompInstall(Button)

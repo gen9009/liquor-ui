@@ -30,6 +30,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@liquor-ui/components": "workspace:^"
+    "@liquor-ui/components": "workspace:^",
+    "@liquor-ui/utils": "workspace:^"
   }
 }

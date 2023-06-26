@@ -7,6 +7,9 @@ importers:
       '@liquor-ui/components':
         specifier: workspace:^
         version: link:packages/components
+      '@liquor-ui/utils':
+        specifier: workspace:^
+        version: link:packages/utils
     devDependencies:
       '@commitlint/config-conventional':
         specifier: ^17.6.5
