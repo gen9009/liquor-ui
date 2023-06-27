@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import App from './app.vue'
-import * as LiquorUI from '@liquor-ui/components'
+import LiquorUI from '../packages/liquor-ui'
+// import LiquorUI from 'liquor-ui' // [problem] 直接访问liquor-ui失败
 const app = createApp(App)
-Object.keys(LiquorUI).forEach(v => {
-  app.use(LiquorUI[v as keyof typeof LiquorUI])
-})
+app.use(LiquorUI)
 app.mount('#play')
