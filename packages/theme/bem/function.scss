@@ -1,0 +1,67 @@
+@use 'variable';
+/* 
+将选择器转换为字符串
+*/
+@function selectorToString($selector) {
+  // https: //www.sasscss.com/documentation/modules/meta#inspect
+  // 将选择器转换为字符串表示形式
+  $selector: inspect($selector);
+  // 去除字符串的前两个字符和最后两个字符
+  // "#my-selector" --> my-selector
+  $selector: str-slice($selector, 2, -2);
+  @return $selector;
+}
+
+/* 
+判断选择器是否包含 -- (也就是修饰连接符)
+*/
+@function containsModifier($selector) {
+  $selector: selectorToString($selector);
+
+  // 判断选择器是否包含 -- (也就是修饰连接符)
+  // https: //www.sasscss.com/documentation/modules/string/
+  @if str-index($selector, variable.$modifier-separator)>=0 {
+    @return true;
+  }
+
+  @else {
+    @return false;
+  }
+}
+
+/* 
+判断父级选择器是否包含'.is-'
+ */
+@function containWhenFlag($selector) {
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, '.' + variable.$state-prefix) {
+    @return true;
+  }
+
+  @else {
+    @return false;
+  }
+}
+
+/* 
+判断父级是否包含 ':' （用于判断伪类和伪元素）
+*/
+@function containPseudoClass($selector) {
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, ':') {
+    @return true;
+  }
+
+  @else {
+    @return false;
+  }
+}
+
+/* 
+判断父级选择器，是否包含`--` `.is-` `：`这三种字符
+*/
+@function hitAll($selector) {
+  @return containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
+}

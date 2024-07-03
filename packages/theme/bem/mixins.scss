@@ -1,0 +1,98 @@
+@use './variable.scss';
+@use './function.scss';
+
+@mixin b($block) {
+  $B: $namespace + '-' + $block !global;
+
+  #{$B} {
+    @content;
+  }
+}
+
+/* 
+  @include b(button){
+    width: 100px;
+  }
+ 相当于
+ .l-button {
+    width: 100px;
+  }
+*/
+
+
+@mixin e($element) {
+  $E: $element;
+  $currentSeletor: '';
+  $selector: &;
+
+  @each $unit in $element {
+    $currentSeletor: #{$currentSeletor + '.'+ $B + $element-separator + $unit + ','};
+
+    /* 
+    @at-root的作用
+    
+    .parent {
+     @at-root{
+        .child{
+          color:red;
+        }
+      }
+    }
+    编译后 (不存在父级选择器)
+    .child {
+      color:red;
+    }
+    */
+
+    @if hitAll($currentSeletor) {
+      @at-root {
+        #{$selector} {
+          #{$currentSeletor} {
+            @content;
+          }
+        }
+      }
+    }
+
+    @else {
+      @at-root {
+        #{$currentSeletor} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSeletor: '';
+
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ',' };
+  }
+
+  @at-root {
+    #{$currentSeletor} {
+      @content
+    }
+  }
+}
+
+/* 
+@include when(actived){
+  color:red;
+}
+相当于
+.is-actived{
+  color:red;
+}
+*/
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix+$state} {
+      @content;
+    }
+  }
+}
