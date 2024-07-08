@@ -1,4 +1,5 @@
 export const defaultNamespace = 'l'
+export const statePrefix = 'is-'
 
 // 生成命名空间+BEM规范
 
@@ -19,7 +20,6 @@ const _bem = (
   if (modifier) {
     cls += `--${modifier}`
   }
-  console.log('🚀::::::🐶💩', cls)
   return cls
 }
 
@@ -42,8 +42,12 @@ export const useNamespace = (block: string,) => {
   const bem = (blockSuffix?: string, element?: string, modifier?: string) => {
     return blockSuffix && element && modifier ? _bem(defaultNamespace, block, blockSuffix, element, modifier) : ''
   }
+  const is = (name: string, ...args: [boolean | undefined] | []) => {
+    const state = args?.[0] !== undefined ? args[0] : true
+    return name && state ? `${statePrefix}${name}` : ''
+  }
 
   return {
-    b, e, be, bm, em, bem
+    b, e, be, bm, em, bem, is
   }
 }

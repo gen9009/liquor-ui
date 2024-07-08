@@ -1,8 +1,8 @@
-@use './variable.scss';
+@use './variable.scss' as *;
 @use './function.scss';
 
 @mixin b($block) {
-  $B: $namespace + '-' + $block !global;
+  $B: '.' + $namespace + '-' + $block !global;
 
   #{$B} {
     @content;
